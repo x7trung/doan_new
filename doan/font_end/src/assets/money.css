@@ -1,0 +1,41 @@
+.money{
+height: max-content;
+padding: 15px 20px;
+box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.time-money{
+    margin-bottom: 15px;
+}
+.income-money_item {
+    height: max-content;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 10px 20px 10px 50px;
+}
+.income-money_item h3{
+   padding-left: 30px;
+}
+.income-money_title h2{
+  color: gray;
+}
+.income-money{
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr;
+   gap: 30px;
+   
+}
+.money_item{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+.money-icon{
+    font-size: 30px;
+    color: rgb(2, 139, 139);
+}
+
+.money-sale h2{
+font-weight: 500;
+color: rgb(2, 139, 139);
+}

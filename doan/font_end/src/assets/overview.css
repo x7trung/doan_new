@@ -1,0 +1,58 @@
+.category-map{
+    display: flex;
+    justify-content: space-around;
+}
+.category-card{
+    width: 286px;
+    height: max-content;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 10px 15px;
+    transition-duration: .3s;
+transition-property:all;
+transition-timing-function: ease-out;
+}
+.category-card:hover{
+    transform: translateY(-6px);
+}
+.category-card_title h3{
+    font-size: 16px;
+    font-weight: 500;
+    color: gray;
+
+}
+
+.category-card_wrapper{
+    display: flex;
+    justify-content: space-between;
+  margin-top: 1.5rem;
+}
+.incom_number h2{
+font-size: 22px;
+color: #495057;
+}
+.incom_view h3{
+    font-size: 14px;
+    font-weight: 400;
+    color: gray;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.category-card_icon{
+    font-size: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    
+}
+.card-icon_icon{
+    width: 48px;
+    height: 48px;
+    border:  rgba(10,179,156,.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+    
+    border-radius: 5px;
+}

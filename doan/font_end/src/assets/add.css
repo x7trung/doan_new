@@ -1,0 +1,30 @@
+.add{
+ display: flex;
+justify-content: center;
+align-items: center;
+gap: 10px;
+margin-bottom: 15px;
+}
+/* .add button{
+background-color: #ee4d2d;
+color: #fff;
+cursor: pointer;
+border: #ee4d2d;
+padding: 5px 40px;
+border-radius: 2px;
+font-size: 16px;
+}
+.add button:hover {
+background-color: #e66a52;
+color: #fff;
+} */
+.add-input{
+ width: 60% !important;
+}
+.add-label{
+ width: 100px !important;
+ text-align: right;
+}
+.add-input input{
+ width: 100% !important;
+}

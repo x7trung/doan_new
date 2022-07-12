@@ -1,0 +1,9 @@
+.user-manage{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.user-manage_add{
+    
+}
