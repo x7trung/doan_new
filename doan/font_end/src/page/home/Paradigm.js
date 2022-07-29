@@ -1,8 +1,11 @@
 import React from 'react'
 import '../../assets/paradigm.css'
+import Chart from '../../components/Chart'
 const Paradigm = () => {
     return (
-        <div className='paradigm'></div>
+        <div className='paradigm'>
+            <Chart />
+        </div>
     )
 }
 

@@ -45,7 +45,9 @@ const Wrapper = ({ children }) => {
         <div>
             <Layout>
                 <Sider trigger={null} collapsible collapsed={collapsed}>
-                    <div className="logo">Antorro</div>
+                    <div className="logo">
+                        <img src='https://cdn.elly.vn/uploads/2020/12/06111440/logo-black.svg' />
+                    </div>
                     <Menu
                         theme="dark"
                         mode="inline"

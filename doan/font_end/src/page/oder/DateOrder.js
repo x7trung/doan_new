@@ -10,30 +10,33 @@ const PickerWithType = ({ type, onChange }) => {
 };
 
 
-const DateOrder = () => {
+const DateOrder = ({ state, setState }) => {
     const [type, setType] = useState('date');
     const handleChange = (value) => {
-        console.log(`selected ${value}`);
+        setState(value)
     };
 
     return (
         <div className='date-order'>
             <div className='goods-filter'>
                 <Select
-                    defaultValue="lucy"
+                    defaultValue={state}
                     style={{
                         width: 150,
 
                     }}
                     onChange={handleChange}
                 >
-                    <Option value="jack">Tất cả </Option>
-                    <Option value="lucy">Chờ xác nhận</Option>
-                    <Option value="disabled">
+                    <Option value="">Tất cả </Option>
+                    <Option value="Chờ xác nhận">Chờ xác nhận</Option>
+                    <Option value="Đang giao hàng">
                         Đang giao
                     </Option>
-                    <Option value="disabled">
+                    <Option value="Giao hàng thành công">
                         Giao thành công
+                    </Option>
+                    <Option value="Huỷ">
+                        Huỷ
                     </Option>
                 </Select>
             </div>

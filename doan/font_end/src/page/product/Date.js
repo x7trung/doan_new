@@ -1,17 +1,20 @@
 import { DatePicker, Select, Space, TimePicker } from 'antd';
 import React, { useState } from 'react';
 import '../../assets/date.css'
+import moment from 'moment'
+
+
 const { Option } = Select;
 
-const PickerWithType = ({ type, onChange }) => {
-    // if (type === 'time') return <TimePicker onChange={onChange} />;
-    if (type === 'date') return <DatePicker onChange={onChange} />;
-    return <DatePicker picker={type} onChange={onChange} />;
-};
+const Date = ({ setMonth, month }) => {
 
-
-const Date = () => {
-    const [type, setType] = useState('date');
+    const [type, setType] = useState('month');
+    const onChangeMonth = (data) => {
+        setMonth({
+            month: moment(data).format("M"),
+            year: moment(data).format("Y"),
+        });
+    };
     const handleChange = (value) => {
         console.log(`selected ${value}`);
     };
@@ -37,10 +40,12 @@ const Date = () => {
             <div className='date-filter'>
                 <Space>
                     <Select value={type} onChange={setType}>
-                        <Option value="date">Ngày</Option>
                         <Option value="month">Tháng</Option>
                     </Select>
-                    <PickerWithType type={type} onChange={(value) => console.log(value)} />
+                    <DatePicker picker={"month"} onChange={onChangeMonth}
+                        defaultValue={moment(`${month.year}/${month.month}/1`)} />
+
+
                 </Space>
             </div>
         </div>

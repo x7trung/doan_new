@@ -32,6 +32,12 @@ const Add = () => {
             delete values.color
             delete values.quantity
         }
+        values.detail = values.detail.map(i => {
+            return { ...i, quantity: Number(i.quantity) }
+        })
+        values.price = Number(values.price)
+        values.discount = Number(values.discount)
+
         try {
             const res = await Products.createProduct(values)
             const imageValid = fileList.filter((file) => !file.url).length;
@@ -81,6 +87,13 @@ const Add = () => {
             <Form.Item
                 label="Giá tiền"
                 name="price"
+                rules={[{ required: true, message: 'Please input your username!' }]}
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                label="Giảm giá"
+                name="discount"
                 rules={[{ required: true, message: 'Please input your username!' }]}
             >
                 <Input />

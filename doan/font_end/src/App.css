@@ -48,6 +48,10 @@
 .logo{
   background-color: aqua !important;
 }
+.logo img{
+  width: 150px;
+  height: 20px;
+}
 
 .anticon-menu-fold {
   margin-left: 15px !important;

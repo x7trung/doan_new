@@ -29,17 +29,20 @@ const DetailOrder = ({ product }) => {
             {product.map((item, index) => {
                 return <div className='detail-oder' key={index}>
                     <div className='detail-oder_img'>
-                        <img src={item?.img || ""} />
-                        <h3>{item?.name || ""}</h3>
+                        <img src={item?.product_image || ""} />
+                        <h3>{item?.product_name || ""}</h3>
+                    </div>
+                    <div className='detail-oder_item oder-item_color'>
+                        <h3>Màu sắc:</h3>
+                        <div className='oder-item_backgroudcolor' style={{ backgroundColor: item.product_color }}>
+                        </div>
                     </div>
                     <div className='detail-oder_item'>
-                        <h3>{item.color}</h3>
+                        <h3>Giá tiền:  {Number(item.product_price).toLocaleString()
+                        }đ</h3>
                     </div>
                     <div className='detail-oder_item'>
-                        <h3>{item.price}</h3>
-                    </div>
-                    <div className='detail-oder_item'>
-                        <h3>{item.quantity}</h3>
+                        <h3>Số lượng: {item.product_quantity}</h3>
                     </div>
                 </div>
             })}

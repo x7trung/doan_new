@@ -1,5 +1,6 @@
 .paradigm{
-    height: 513px;
-    border: 1px solid gray;
+    height: max-content;
     margin: 30px 8px;
+    padding: 10px 0;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }

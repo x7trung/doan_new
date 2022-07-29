@@ -2,20 +2,63 @@ const usersDB = require("../../model/user");
 const cloudinary = require("../../helper/configCloudinary");
 const ImageUserDB = require("../../model/userImg");
 const bcrypt = require("bcryptjs");
-const _ = require('lodash')
+const _ = require('lodash');
+const { template } = require("lodash");
+const Features = require("../../lib/feature")
 
 
-exports.findAll = (req, res) => {
-    usersDB.find().populate("Image")
-        .then((users) => {
-            return res.status(200).json({ data: users });
-        })
-        .catch((err) => {
-            return res.status(400).json({
-                success: false,
-                messenger: err.message
-            });
-        })
+exports.findAll = async (req, res) => {
+
+    try {
+        const features = new Features(
+            usersDB
+                .find()
+                .populate("Image").populate('orders'),
+            req.query
+        )
+            .sorting()
+            .paginating()
+            .searching()
+            .filtering();
+
+        const counting = new Features(
+            usersDB
+                .find(),
+
+            req.query
+        )
+            .sorting()
+            .searching()
+            .filtering()
+            .counting();
+
+        const result = await Promise.allSettled([
+            features.query,
+            counting.query, //count number of user.
+        ]);
+        const users = result[0].status === "fulfilled" ? result[0].value : [];
+        const count = result[1].status === "fulfilled" ? result[1].value : 0;
+
+        return res.status(200).json({ data: users, count });
+
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            messenger: error.message
+        });
+    }
+
+    //  usersDB.find().populate("Image").populate('orders')
+    //     .then((users) => {
+    //         return res.status(200).json({ data: users });
+    //     })
+    //     .catch((err) => {
+    //         return res.status(400).json({
+    //             success: false,
+    //             messenger: err.message
+    //         });
+    //     })
 
 }
 
@@ -170,3 +213,71 @@ exports.uploadUserImage = async (req, res) => {
         return res.status(400).json({ status: "400", message: error.message });
     }
 };
+
+exports.AddToCart = async (req, res) => {
+    try {
+        const data = await usersDB.findById(req.params.id)
+        let newCart
+        if (data.cart.find(i => i.product_color == req.body.product_color && i.product_id == req.body.product_id)) {
+            newCart = data.cart.map(item => {
+                if (item.product_color == req.body.product_color && item.product_id == req.body.product_id) {
+                    return { ...item, product_quantity: item.product_quantity + Number(req.body.product_quantity) }
+                } else {
+                    return item
+                }
+            })
+            await usersDB.findByIdAndUpdate(req.params.id, { cart: newCart })
+        } else
+            await usersDB.findByIdAndUpdate(req.params.id, { $push: { cart: { ...req.body, product_quantity: Number(req.body.product_quantity) } } })
+        return res.status(200).json({ message: "thêm giỏ hàng thành công" })
+
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
+    }
+}
+
+exports.IncToCart = async (req, res) => {
+    try {
+        const data = await usersDB.findById(req.params.id)
+        const newCart = data.cart.map(item => {
+            if (item.product_color == req.body.product_color && item.product_id == req.body.product_id) {
+                return { ...item, product_quantity: item.product_quantity + Number(req.body.product_quantity) }
+            } else {
+                return item
+            }
+        })
+        await usersDB.findByIdAndUpdate(req.params.id, { cart: newCart })
+        return res.status(200).json({ message: "tằng số lượng giỏ hàng thành công" })
+
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
+    }
+}
+exports.DecToCart = async (req, res) => {
+    try {
+        const data = await usersDB.findById(req.params.id)
+        const newCart = data.cart.map(item => {
+            if (item.product_color == req.body.product_color && item.product_id == req.body.product_id) {
+                return { ...item, product_quantity: item.product_quantity - Number(req.body.product_quantity) }
+            } else {
+                return item
+            }
+        }).filter(item => item.product_quantity > 0)
+        await usersDB.findByIdAndUpdate(req.params.id, { cart: newCart })
+        return res.status(200).json({ message: "giảm số lượng giỏ hàng thành công" })
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
+    }
+}
+
+exports.DeleteToCart = async (req, res) => {
+    try {
+        const data = await usersDB.findById(req.params.id)
+        const newCart = data.cart.filter(item => !(item.product_color == req.body.product_color && item.product_id == req.body.product_id)
+        )
+        await usersDB.findByIdAndUpdate(req.params.id, { cart: newCart })
+        return res.status(200).json({ message: "xoá khỏi giỏ hàng thành công" })
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
+    }
+}

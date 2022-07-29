@@ -40,5 +40,16 @@
     font-size: 17px;
     font-weight: 400;
     color: gray;
+  
 }
-
+.oder-item_color{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.oder-item_backgroudcolor{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}

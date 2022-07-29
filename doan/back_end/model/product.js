@@ -6,14 +6,12 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        min: 6,
-        max: 255,
+
     },
     name: {
         type: String,
         required: true,
-        min: 6,
-        max: 255,
+
     },
     size: {
         type: String,
@@ -35,13 +33,11 @@ const productSchema = new mongoose.Schema({
     },
     describe: {
         type: String,
-        max: 255,
-        min: 8,
+
     },
     view: {
         type: Number,
-        max: 255,
-        min: 8,
+        default: 0
     },
 
     comments: {
@@ -58,6 +54,19 @@ const productSchema = new mongoose.Schema({
     history: {
         type: Array,
     },
+    orders: [{
+        type: mongoose.Schema.Types.ObjectId, ref: "oder"
+    }],
+
+    discount: { type: Number, default: 0 },
+    historySale: {
+        type: Array,
+        default: []
+    },
+    sale: { type: Number, default: 0 },
+    created: { type: Date, default: new Date() },
+    like: { type: Number },
+    mate: { type: String }
 });
 const productDB = mongoose.model("product", productSchema);
 

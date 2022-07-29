@@ -1,6 +1,9 @@
-import { Form, InputNumber, Popconfirm, Table, Typography, Input, Button, Select, Tooltip, Modal } from 'antd';
+import { Form, InputNumber, Popconfirm, Table, Typography, Input, Button, Select, Tooltip, Modal, Pagination } from 'antd';
 import { useState } from 'react';
 import DetailOrder from './DetailOrder';
+import Toast from '../../components/Toast';
+import Order from '../../services/orderServices'
+import moment from 'moment'
 const { Option } = Select;
 
 
@@ -19,9 +22,10 @@ const EditableCell = ({
             width: 200,
         }}
     >
-        <Option value="jack">Chờ xác nhận</Option>
-        <Option value="lucy">Đang giao hàng</Option>
-        <Option value="lucy">Giao hàng thành công</Option>
+        <Option value="Chờ xác nhận">Chờ xác nhận</Option>
+        <Option value="Đang giao hàng">Đang giao hàng</Option>
+        <Option value="Giao hàng thành công">Giao hàng thành công</Option>
+        <Option value="Huỷ hàng">Huỷ hàng</Option>
 
     </Select> : inputType === 'selectPay' ? <Select
         style={{
@@ -55,7 +59,7 @@ const EditableCell = ({
     );
 };
 
-const TableOrder = ({ data }) => {
+const TableOrder = ({ data, setData, total, page, setPage }) => {
     const [form] = Form.useForm();
     const [editingKey, setEditingKey] = useState('');
     const [deletingKey, setDeletingKey] = useState('');
@@ -66,9 +70,6 @@ const TableOrder = ({ data }) => {
 
     const edit = (record) => {
         form.setFieldsValue({
-            name: '',
-            age: '',
-            address: '',
             ...record,
         });
         setEditingKey(record.key);
@@ -88,8 +89,27 @@ const TableOrder = ({ data }) => {
         setEditingKey("");
     };
 
-    const save = async (key) => {
+    const save = async (id) => {
+        try {
+            const { name, address, state, product, phone, ...rest } = form.getFieldValue()
 
+            await Order.updateOrders(id, { name, address, state, phone, product, receiveddate: Date.now() })
+            console.log(data)
+            setData(data.map(item => {
+                if (item._id == id) {
+                    if (state == "Giao hàng thành công") {
+                        return { ...item, name, address, state, phone, receiveddate: Date.now() }
+                    } else
+                        return { ...item, name, address, state, phone }
+                } else return item
+            }))
+            Toast('success', "update thành công")
+
+
+        } catch (error) {
+            Toast('error', error.messages)
+        }
+        setEditingKey("");
     };
 
     const columns = [
@@ -116,12 +136,18 @@ const TableOrder = ({ data }) => {
             editable: true,
         },
         {
+            title: 'Số điện thoại',
+            dataIndex: 'phone',
+            width: 150,
+            editable: true,
+        },
+        {
             title: 'Đơn hàng',
             dataIndex: 'detail',
             width: 150,
             render: (_, record) => {
-                console.log(record.product)
                 return <Button onClick={() => {
+
                     setVisible(true)
                     setProduct(record.product)
                 }}> Xem chi tiết</Button >
@@ -140,7 +166,7 @@ const TableOrder = ({ data }) => {
             dataIndex: 'ship',
             width: 100,
             render: (num) => {
-                console.log(num)
+
                 return <p>{Number(num).toLocaleString()}đ</p>
             }
 
@@ -149,7 +175,7 @@ const TableOrder = ({ data }) => {
             title: 'Thanh toán',
             dataIndex: 'paymenttype',
             width: 130,
-            editable: true,
+
 
         },
         {
@@ -165,11 +191,26 @@ const TableOrder = ({ data }) => {
             title: 'Ngày đặt',
             dataIndex: 'oderdate',
             width: 130,
+            render: (_, record) => {
+                return (
+                    <div>
+                        {moment(record.oderdate).zone("+07:00").format("DD/MM/YYYY")}
+                    </div>
+                );
+            },
         },
         {
             title: 'Ngày nhận',
             dataIndex: 'receiveddate',
             width: 130,
+            render: (_, record) => {
+                console.log(record.receiveddate)
+                return (
+                    <div>
+                        {moment(record.receiveddate).zone("+07:00").format("DD/MM/YYYY")}
+                    </div>
+                );
+            },
         },
         {
             title: 'Trạng thái',
@@ -180,12 +221,13 @@ const TableOrder = ({ data }) => {
         {
             title: 'Chỉnh sửa',
             dataIndex: 'operation',
+            width: 150,
             render: (_, record) => {
                 const editable = isEditing(record);
                 return editable ? (
                     <span>
                         <Typography.Link
-                            onClick={() => save(record.key)}
+                            onClick={() => save(record._id)}
                             style={{
                                 marginRight: 8,
                             }}
@@ -205,34 +247,34 @@ const TableOrder = ({ data }) => {
                 );
             },
         },
-        {
-            title: 'Xoá',
-            dataIndex: 'delete',
-            render: (_, record) => {
-                const deleteable = isDeleting(record);
-                return deleteable ? (
-                    <span>
-                        <Typography.Link
-                            onClick={() => deleteOrder(record.key)}
-                            style={{
-                                marginRight: 8,
-                            }}
-                        >
-                            Xoá
-                        </Typography.Link>
-                        <Popconfirm title="Sure to cancel?" onConfirm={cancelDelete}>
-                            <a>Huỷ</a>
-                        </Popconfirm>
-                    </span>
-                ) : (
-                    <>
-                        <Typography.Link disabled={deletingKey !== ''} onClick={() => setDeletingKey(record.key)} style={{ marginLeft: 25 }}>
-                            Delete
-                        </Typography.Link>
-                    </>
-                );
-            },
-        },
+        // {
+        //     title: 'Xoá',
+        //     dataIndex: 'delete',
+        //     render: (_, record) => {
+        //         const deleteable = isDeleting(record);
+        //         return deleteable ? (
+        //             <span>
+        //                 <Typography.Link
+        //                     onClick={() => deleteOrder(record.key)}
+        //                     style={{
+        //                         marginRight: 8,
+        //                     }}
+        //                 >
+        //                     Xoá
+        //                 </Typography.Link>
+        //                 <Popconfirm title="Sure to cancel?" onConfirm={cancelDelete}>
+        //                     <a>Huỷ</a>
+        //                 </Popconfirm>
+        //             </span>
+        //         ) : (
+        //             <>
+        //                 <Typography.Link disabled={deletingKey !== ''} onClick={() => setDeletingKey(record.key)} style={{ marginLeft: 25 }}>
+        //                     Delete
+        //                 </Typography.Link>
+        //             </>
+        //         );
+        //     },
+        // },
 
     ];
     const mergedColumns = columns.map((col) => {
@@ -265,14 +307,14 @@ const TableOrder = ({ data }) => {
                     dataSource={data}
                     columns={mergedColumns}
                     rowClassName="editable-row"
-                    pagination={false}
+
                     scroll={{
                         x: 2000,
                     }}
 
                 />
             </Form>
-
+            <Pagination defaultCurrent={page} total={total} onChange={(value) => setPage(value)} />
             <Modal
                 title="Sản phẩm đặt hàng"
                 centered

@@ -9,16 +9,23 @@ import Toast from "../../components/Toast";
 
 const { Search } = Input;
 const User = () => {
-    const onSearch = (value) => console.log(value);
+
     const [visible, setVisible] = useState(false);
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
-
+    const [total, setTotal] = useState(0)
+    const [page, setPage] = useState(1)
+    const [searchKey, setSearchKey] = useState("")
+    const onSearch = (value) => setSearchKey(value);
     //hàm call api
     const getUser = async () => {
         setLoading(true)
         try {
-            const { data } = await userServices.getUsers();
+            const params = {
+                limit: 10, page: 1,
+            }
+            const { data, count } = await userServices.getUsers(params);
+            setTotal(count)
             setData(data.map((i, idx) => {
                 return { ...i, key: idx }
             }))
@@ -31,10 +38,29 @@ const User = () => {
     useEffect(() => {
         getUser()
     }, [])
-    //useEffect thường để call api
-    //[] chạy 1 lần khi xuất hiện
-    //[deps] chạy mỗi khi deps thay đỔi
-    // không truyền vào mảng thì sẽ chạy mỗi khi useState thay đỔi
+
+    useEffect(() => {
+        getUserBySearch()
+    }, [searchKey, page])
+
+
+    const getUserBySearch = async () => {
+        setLoading(true)
+        try {
+            const params = {
+                limit: 10, page: page, "name[regex]": searchKey
+            }
+            const { data, count } = await userServices.getUsers(params);
+            setTotal(count)
+            setData(data.map((i, idx) => {
+                return { ...i, key: idx }
+            }))
+        } catch (error) {
+            Toast("error", error.message)
+        }
+        setLoading(false)
+    }
+
 
     if (loading) {
         return <div>loading...</div>
@@ -47,6 +73,7 @@ const User = () => {
                 </div>
                 <div className='user-manage_search'>
                     <Search
+                        defaultValue={searchKey}
                         placeholder="Tìm kiếm khách hàng"
                         onSearch={onSearch}
                         style={{
@@ -70,7 +97,7 @@ const User = () => {
                     </Modal>
                 </div>
             </div>
-            <TableUser data={data} />
+            <TableUser data={data} total={total} page={page} setPage={setPage} />
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import Products from '../../services/productServices';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const EditableCell = ({
@@ -14,7 +15,6 @@ const EditableCell = ({
     ...restProps
 }) => {
     const inputNode = inputType === 'number' ? <InputNumber min={0} max={50} step={1} /> : <Input />;
-
     return (
         <td {...restProps}>
             {editing ? (
@@ -39,17 +39,19 @@ const EditableCell = ({
     );
 };
 
-const ImportGoods = ({ product }) => {
-    console.log(product)
-    const newProduct = product.map(item => {
-        return item.detail.map((i, idx) => {
-            return { ...i, key: idx, product_code: item.product_code, name: item.name, size: item.size, price: item.price, created: item.created }
-        })
-    }).flat(Infinity)
+const ImportGoods = ({ product, setData, data, month }) => {
+    const [newProduct, setNewProduct] = useState(product.filter(i => i.created == month.month).slice(-1)[0]?.detail.map((item, index) => {
+        return { product_code: product[0].product_code, name: product[0].name, ...item, price: product[0].price, size: product[0].size, created: product.filter(i => i.created == month.month).slice(-1)[0].created, key: index }
+    }) || [])
+
     const [form] = Form.useForm();
     const [editingKey, setEditingKey] = useState('');
     const isEditing = (record) => record.key === editingKey;
-
+    useEffect(() => {
+        setNewProduct(product.filter(i => i.created == month.month).slice(-1)[0]?.detail.map((item, index) => {
+            return { product_code: product[0].product_code, name: product[0].name, ...item, price: product[0].price, size: product[0].size, created: product.filter(i => i.created == month.month).slice(-1)[0].created, key: index }
+        }) || [])
+    }, [product])
     const edit = (record) => {
         form.setFieldsValue({
             ...record,
@@ -61,12 +63,33 @@ const ImportGoods = ({ product }) => {
         setEditingKey('');
     };
 
-    const save = async (key) => {
+    const save = async () => {
         try {
-            const saveData = form.getFieldValue()
-            delete saveData.key
+            const { product_code, quantity, color, ...rest } = form.getFieldValue()
+            const { data: newData } = await Products.updateProduct(product_code, { history: { quantity, color, created: new Date().getMonth() + 1 } })
+            setData(data.map(i => {
+                if (i.product_code === newData.product_code) {
+                    return {
+                        ...i,
+                        detail: newData.detail,
+                        history: newData.history,
+                        stock: newData.detail.reduce((acc, cur) => {
+                            return acc + cur.quantity
+                        }, 0)
 
+                    }
+                } else return i
+            }))
+            console.log(newData.history.filter(i => i.created == month.month).slice(-1)[0])
 
+            setNewProduct(newData.history.filter(i => i.created == month.month).slice(-1).map((item, index) => {
+                return { ...item, product_code: newData.product_code, name: newData.name, size: newData.size, key: index, }
+            }).map(item => {
+                return item.detail.map((i, idx) => {
+                    return { ...i, key: idx, product_code: item.product_code, name: item.name, size: item.size, price: item.price, created: item.created }
+                })
+            }).flat(Infinity))
+            setEditingKey('');
         } catch (errInfo) {
             console.log('Validate Failed:', errInfo);
         }
@@ -115,7 +138,7 @@ const ImportGoods = ({ product }) => {
             width: '150px',
             render: (_, record) => {
                 const editable = isEditing(record);
-                if (new Date(record.created).getMonth() !== new Date().getMonth()) return null
+                if (record.created == new Date().getMonth()) return null
                 return editable ? (
                     <span>
                         <Typography.Link

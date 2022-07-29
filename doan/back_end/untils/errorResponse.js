@@ -1,7 +1,7 @@
 class ErrorResponse {
-    constructor(message, code, data) {
+    constructor(message, status, data) {
         this.message = message;
-        this.code = code;
+        this.status = status;
         this.data = data;
     }
 

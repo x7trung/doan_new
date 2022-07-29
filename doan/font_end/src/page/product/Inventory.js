@@ -49,17 +49,14 @@ const EditableCell = ({
 
 const Inventory = ({ product }) => {
     const [form] = Form.useForm();
-    const [data, setData] = useState(originData);
+
     const [editingKey, setEditingKey] = useState('');
 
 
     const isEditing = (record) => record.key === editingKey;
-    console.log(product)
     const edit = (record) => {
         form.setFieldsValue({
-            name: '',
-            age: '',
-            address: '',
+
             ...record,
         });
         setEditingKey(record.key);

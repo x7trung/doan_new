@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         max: 16,
-        min: 8,
+        min: 5,
     },
     phone: {
         type: String,
@@ -37,8 +37,11 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    orders: {
-        type: Array,
+    orders: [{
+        type: mongoose.Schema.Types.ObjectId, ref: "oder"
+    }],
+    cart: {
+        type: Array
     },
 });
 const usersDB = mongoose.model("users", userSchema);

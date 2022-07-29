@@ -7,3 +7,6 @@
 .user-manage_add{
     
 }
+.ant-pagination-options{
+    display: none !important;
+}

@@ -15,8 +15,8 @@ const Monney = () => {
     };
     const [data, setData] = useState([
         {
-            title: "Tổng thu nhập",
-            name: "Doanh thu",
+            title: "Thu nhập",
+            name: "Lợi nhuận",
             icon: <RiMoneyDollarCircleFill />,
             money: "2000000đ"
         },

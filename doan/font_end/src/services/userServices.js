@@ -1,8 +1,8 @@
 import axiosClient from "./axiosClient";
 const User = {
-    getUsers: () => {
+    getUsers: (params) => {
         const url = "user/find-all";
-        return axiosClient.get(url);
+        return axiosClient.get(url, { params });
     },
     uploadImages: (id, body) => {
         const url = `user/upload-image/${id}`;

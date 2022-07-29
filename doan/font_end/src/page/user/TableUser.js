@@ -1,7 +1,8 @@
-import { Space, Table, Button, Modal, Form, Input, DatePicker, Radio } from 'antd';
+import { Space, Table, Button, Modal, Form, Input, DatePicker, Radio, Pagination } from 'antd';
 import { useEffect, useState } from 'react';
 import ImgUpload from '../../components/ImageUpload';
 import _ from "lodash";
+import UserOrders from './UserOrders';
 const layout = {
     labelCol: {
         span: 5,
@@ -13,17 +14,15 @@ const layout = {
 
 
 
-const TableUser = ({ data }) => {
+const TableUser = ({ data, total, page, setPage }) => {
     const [fileList, setFileList] = useState([]);
     const [visible, setVisible] = useState(false);
     const [form] = Form.useForm();
     const [formValue, setFormValue] = useState({});
     const [disabled, setDisabled] = useState(true)
-
-
-
+    const [visibleA, setVisibleA] = useState(false)
+    const [userOrders, setUserOrders] = useState([])
     useEffect(() => form.resetFields(), [formValue]);
-    // console.log(data)
     const columns = [
         {
             title: 'Id',
@@ -47,6 +46,7 @@ const TableUser = ({ data }) => {
             dataIndex: 'address',
             key: 'address',
             render: (_, record) => {
+
                 return <Button onClick={() => {
                     setVisible(true);
                     setFormValue(record)
@@ -57,8 +57,14 @@ const TableUser = ({ data }) => {
             title: 'Sản phẩm đã mua',
             key: 'order',
             dataIndex: 'order',
-            render: () => <Button>Xem chi tiết</Button>,
+            render: (_, record) => <Button onClick={() => {
+                setVisibleA(true);
+                setUserOrders(record.orders)
+            }
+
+            }>Xem chi tiết</Button>,
         },
+
         {
             title: 'Xoá người dùng',
             key: 'action',
@@ -75,7 +81,8 @@ const TableUser = ({ data }) => {
     return (
         <div>
             <>
-                <Table columns={columns} dataSource={data} />;
+                <Table columns={columns} dataSource={data} pagination={false} />;
+                <Pagination defaultCurrent={page} total={total} onChange={(value) => setPage(value)} />
             </>
             <>
                 <Modal
@@ -161,6 +168,17 @@ const TableUser = ({ data }) => {
                             }
                         </Form.Item>
                     </Form>
+                </Modal>
+                <Modal
+                    title="Modal 1000px width"
+                    centered
+                    visible={visibleA}
+                    onOk={() => setVisibleA(false)}
+                    onCancel={() => setVisibleA(false)}
+                    footer={null}
+                    width={900}
+                >
+                    <UserOrders setUserOrders={setUserOrders} userOrders={userOrders} />
                 </Modal>
             </>
         </div>

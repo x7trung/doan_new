@@ -85,13 +85,13 @@ exports.login = async (req, res) => {
                     sameSite: "strict",
                 });
 
-                return res.status(200).json(new ErrorResponse("đăng nhập thành công", 200, { token, refreshToken }))
+                return res.status(200).json(new ErrorResponse("đăng nhập thành công", 200, { token, refreshToken, id: _id }))
             }
 
 
         }
     } catch (error) {
-        console.log(error)
+        return res.status(400).json(new ErrorResponse(error.message, 400))
     }
 }
 exports.refreshToken = async (req, res) => {
