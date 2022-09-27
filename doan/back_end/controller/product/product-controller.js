@@ -699,6 +699,9 @@ exports.topProduct = async (req, res) => {
 
             },
         })
+
+
+
         const productByMaterial = productSale.map(item => {
             return item.product
         }).flat(Infinity)
@@ -719,7 +722,9 @@ exports.topProduct = async (req, res) => {
             .filter(item => item.material == "Da bò" && item.gender == "Nam")
 
 
-      
+
+
+
 
 
         const dataProduct = data.map(item => {
@@ -741,7 +746,7 @@ exports.topProduct = async (req, res) => {
             }, []).sort((a, b) => b.product_quantity - a.product_quantity).slice(0, 4)
 
 
-            
+
         const productSaleToDay = productSale.map(item => {
             return item.product
         }).flat(Infinity)
@@ -761,9 +766,9 @@ exports.topProduct = async (req, res) => {
             }, []).sort((a, b) => b.product_quantity - a.product_quantity).slice(0, 4)
 
 
-
+        const totalMoney = productByMaterial.reduce((acc, item) => acc + item.product_quantity * item.product_price, 0)
         return res.status(200).json({
-            dataProduct, productSaleToDay, productByMaterial
+            dataProduct, productSaleToDay, productByMaterial, totalMoney
         })
     } catch (error) {
         return res.status(400).json({ message: error.message })

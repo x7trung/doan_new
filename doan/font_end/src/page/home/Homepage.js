@@ -68,6 +68,8 @@ const Homepage = () => {
     const [dataProductLike, setDataProductLike] = useState([])
     const [type, setType] = useState('week');
     const [time, setTime] = useState(31)
+    //đây r dùng biến ở đâu thì tuỳ m
+    const [moneyMate, setMoneyMate] = useState(0)
 
 
     useEffect(() => {
@@ -83,10 +85,12 @@ const Homepage = () => {
                 const dataTop = await Products.topProduct()
                 const likeData = await ProductServices.getProducts(likeParams)
                 const data = await ProductServices.getProducts()
-                console.log(likeData)
                 setDataTopProduct(dataTop.dataProduct.map((item, index) => {
                     return { ...item, key: index }
                 }))
+                //đây
+                setMoneyMate(dataTop.totalMoney)
+                //
                 setDataProductSale(dataTop.productSaleToDay.map((item, index) => {
                     return { ...item, key: index }
                 }))
@@ -118,7 +122,7 @@ const Homepage = () => {
             <Paradigm data={revenue} type={type} setType={setType} time={time} setTime={setTime} />
             <Topproduct dataTopProduct={dataTopProduct} dataProductSale={dataProductSale} />
             <Topproduct_gender dataProductMate={dataProductMate} />
-           
+
         </div>
     )
 }
