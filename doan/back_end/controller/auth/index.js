@@ -32,10 +32,13 @@ exports.register = async (req, res) => {
     const newUser = new usersDB({
         name: req.body.name,
         email: req.body.email,
+        address: req.body.address,
+        phone: req.body.phone,
         password: hashedPassword,
         role: req.body.role,
 
     })
+
     try {
         const saveUser = await newUser.save();
         return res.status(200).json(new ErrorResponse("tạo tài khoản thành công", 200, saveUser))
@@ -61,11 +64,12 @@ exports.login = async (req, res) => {
         } else {
             //check password
             const validPass = await bcrypt.compare(req.body.password, user.password);
+
             if (!validPass) {
                 return res.status(400).json(new ErrorResponse("sai tài khoản hoặc mật khẩu", 400))
             } else {
 
-                const { _id, name, email, role, ...rest } = user;
+                const { _id, name, email, role, Image, ...rest } = user;
                 const token = jwt.sign({ _id, name, email, role },
                     process.env.TOKEN_SECRET, {
                     expiresIn: "500s",
@@ -85,7 +89,7 @@ exports.login = async (req, res) => {
                     sameSite: "strict",
                 });
 
-                return res.status(200).json(new ErrorResponse("đăng nhập thành công", 200, { token, refreshToken, id: _id }))
+                return res.status(200).json(new ErrorResponse("đăng nhập thành công", 200, { token, refreshToken, id: _id, name, image: Image?.imageUrl || "", role }))
             }
 
 
@@ -140,4 +144,23 @@ exports.refreshToken = async (req, res) => {
 exports.logout = (req, res) => {
 
     console.log("đăng xuất thành công")
+}
+exports.changePassword = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await usersDB.findById(id)
+        const validPass = await bcrypt.compare(req.body.oldPassword, user.password);
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.newPassword, salt)
+        if (validPass) {
+            await usersDB.findByIdAndUpdate(id, { password: hashedPassword });
+            return res.status(200).json({ success: true, message: 'cập nhật mk mới thành công' });
+        } else {
+            return res.status(400).json({ success: false, message: "Mật khẩu cũ không đúng" });
+
+        }
+
+    } catch (err) {
+        return res.status(500).json({ error: err });
+    }
 }

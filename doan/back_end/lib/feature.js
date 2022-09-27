@@ -90,9 +90,10 @@ module.exports = function (query, queryString) {
         );
 
         this.query = this.query.find(JSON.parse(queryStr));
-        console.log(JSON.parse(queryStr))
+
         return this;
     };
+
     //localhost:3000/product/get-all?price[gte]=300&price[lte]=10000
     //localhost:3000/product/get-all?name[regex]=nike
     //this.query = Products.find().find({

@@ -109,20 +109,20 @@ const OderManage = () => {
                             width: 300,
                         }}
                     />
-                </div>
-                <Select
-                    defaultValue={searchBy}
-                    style={{
-                        width: 120,
-                    }}
-                    onChange={(value) => setSearchBy(value)}
-                >
-                    <Option value="">All</Option>
-                    <Option value="name">Tên</Option>
-                    <Option value="address">Địa chỉ</Option>
-                    <Option value="phone">Số điện thoại</Option>
+                    <Select
+                        defaultValue={searchBy}
+                        style={{
+                            width: 120,
+                        }}
+                        onChange={(value) => setSearchBy(value)}
+                    >
+                        <Option value="">Tất cả</Option>
+                        <Option value="name">Tên</Option>
+                        <Option value="address">Địa chỉ</Option>
+                        <Option value="phone">Số điện thoại</Option>
 
-                </Select>
+                    </Select>
+                </div>
                 <div className='oder-manage_add'>
                     <DateOrder setState={setState} state={state} />
                 </div>

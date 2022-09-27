@@ -1,4 +1,4 @@
-const { required } = require("@hapi/joi");
+
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
@@ -20,8 +20,15 @@ const productSchema = new mongoose.Schema({
 
     price: {
         type: Number,
-        required: true,
-
+    },
+    origin_price: {
+        type: Number,
+    },
+    strap_type: {
+        type: String,
+    },
+    style_lock: {
+        type: String,
     },
     detail: {
         type: Array,
@@ -45,28 +52,34 @@ const productSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true,
     },
     nameNCC: {
         type: String,
-        required: true,
     },
     history: {
         type: Array,
     },
-    orders: [{
-        type: mongoose.Schema.Types.ObjectId, ref: "oder"
-    }],
-
+    madeIn: { type: String },
+    gender: { type: String },
+    weight: { type: Number },
+    insurance: { type: Number },
     discount: { type: Number, default: 0 },
-    historySale: {
-        type: Array,
-        default: []
-    },
     sale: { type: Number, default: 0 },
-    created: { type: Date, default: new Date() },
-    like: { type: Number },
-    mate: { type: String }
+    created: { type: Date, default: Date.now() },
+    like: { type: Number, default: 0 },
+    mate: { type: String },
+    historyImport: {
+        type: Array
+    },
+    material: {
+        type: String
+    },
+    longs: {
+        type: Number
+    },
+    pre_order: {
+        type: Array
+    }
 });
 const productDB = mongoose.model("product", productSchema);
 

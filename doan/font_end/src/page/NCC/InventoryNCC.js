@@ -47,7 +47,7 @@ const EditableCell = ({
     );
 };
 
-const Inventory = ({ product }) => {
+const InventoryNCC = ({ detail }) => {
     const [form] = Form.useForm();
 
     const [editingKey, setEditingKey] = useState('');
@@ -70,52 +70,60 @@ const Inventory = ({ product }) => {
 
     const columns = [
         {
+            title: 'Mã sản phẩm',
+            dataIndex: 'product_code',
+            width: '150px',
+
+        },
+        {
             title: 'Sản phẩm',
-            dataIndex: 'name',
-            width: '400px',
+            dataIndex: 'product_name',
+            width: '350px',
 
         },
         {
             title: 'Màu sắc',
             dataIndex: 'color',
-            width: '150px',
+            width: '100px',
 
         },
         {
             title: 'Kích cỡ',
             dataIndex: 'size',
-            width: '150px',
+            width: '100px',
         },
         {
-            title: 'Loại túi',
-            dataIndex: 'classify',
-            width: '150px',
-        },
-        {
-            title: 'Chất liệu',
-            dataIndex: 'material',
-            width: '150px',
-        },
-        {
-            title: 'Kiểu khoá',
-            dataIndex: 'style_lock',
-            width: '150px',
-        },
-        {
-            title: 'Loại dây đeo',
-            dataIndex: 'strap_type',
-            width: '150px',
-        },
-        {
-            title: 'Số lượng',
+            title: 'Số lượng nhập',
             dataIndex: 'quantity',
             width: '150px',
 
         },
         {
-            title: 'Nơi sản xuất',
-            dataIndex: 'madeIn',
+            title: 'Chất liệu',
+            dataIndex: 'material',
             width: '150px',
+
+        },
+        {
+            title: 'Kiểu khoá',
+            dataIndex: 'style_lock',
+            width: '150px',
+
+        },
+        {
+            title: 'Loại dây',
+            dataIndex: 'strap_type',
+            width: '150px',
+
+        },
+        {
+            title: 'Giá nhập',
+            dataIndex: 'price',
+            width: '150px',
+            render: (_, record) => {
+
+                return <p>{Number(record.price).toLocaleString()}đ</p>
+            }
 
         },
 
@@ -145,7 +153,7 @@ const Inventory = ({ product }) => {
                     },
                 }}
                 bordered
-                dataSource={product}
+                dataSource={detail}
                 columns={mergedColumns}
                 rowClassName="editable-row"
                 pagination={{
@@ -155,4 +163,4 @@ const Inventory = ({ product }) => {
         </Form>
     );
 };
-export default Inventory
+export default InventoryNCC

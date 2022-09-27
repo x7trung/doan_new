@@ -24,6 +24,19 @@ const Products = {
         const url = `/product/delete/${id}`;
         return axiosClient.delete(url);
     },
+    totalIncome: () => {
+        const url = `/product/totalIncome`;
+        return axiosClient.get(url);
+    },
+    totalRevenue: (type, body) => {
+        const url = `/product/totalIncome-by/${type}`;
+        return axiosClient.post(url, body);
+    },
+    topProduct: () => {
+        const url = `/product/top-product`;
+        return axiosClient.get(url);
+    }
+
 
 };
 

@@ -30,5 +30,17 @@ route.put(
     "/delete-to-cart/:id",
     index.DeleteToCart
 );
+route.delete(
+    "/remove-all-cart/:id",
+    index.RemoveAllCart
+);
+route.put(
+    "/increase-like/:id",
+    index.IncLike
+);
+route.put(
+    "/decrease-like/:id",
+    index.DecLike
+);
 
 module.exports = route;

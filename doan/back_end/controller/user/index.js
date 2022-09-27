@@ -1,4 +1,5 @@
 const usersDB = require("../../model/user");
+const productsDB = require("../../model/product");
 const cloudinary = require("../../helper/configCloudinary");
 const ImageUserDB = require("../../model/userImg");
 const bcrypt = require("bcryptjs");
@@ -67,7 +68,7 @@ exports.findOne = (req, res) => {
     if (req.params.id) {
         const id = req.params.id;
         if (id) {
-            usersDB.findById(id)
+            usersDB.findById(id).populate("Image").populate('orders')
                 .then((user) => {
                     if (!user) {
                         return res.status(404).json({
@@ -104,7 +105,7 @@ exports.update = (req, res) => {
     }
     const id = req.params.id;
 
-    usersDB.findOneAndUpdate({ id: id }, req.body, { new: true })
+    usersDB.findByIdAndUpdate(id, req.body, { new: true })
         .then((user) => {
             if (!user) {
                 return res.status(404).json({
@@ -277,6 +278,41 @@ exports.DeleteToCart = async (req, res) => {
         )
         await usersDB.findByIdAndUpdate(req.params.id, { cart: newCart })
         return res.status(200).json({ message: "xoá khỏi giỏ hàng thành công" })
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
+    }
+}
+exports.RemoveAllCart = async (req, res) => {
+    try {
+        await usersDB.findByIdAndUpdate(req.params.id, { cart: [] })
+        return res.status(200).json({ message: "xoá giỏ hàng thành công" })
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
+    }
+}
+
+exports.IncLike = async (req, res) => {
+    try {
+        await usersDB.findByIdAndUpdate(req.params.id, {
+            $push: { likeList: req.body.idProduct, }
+        })
+        await productsDB.findByIdAndUpdate(req.body.idProduct,
+            { $inc: { like: 1 } }
+        )
+        return res.status(200).json({ message: "thêm vào danh sách like thành công" })
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
+    }
+}
+exports.DecLike = async (req, res) => {
+    try {
+        await usersDB.findByIdAndUpdate(req.params.id, {
+            $pull: { likeList: req.body.idProduct, }
+        })
+        await productsDB.findByIdAndUpdate(req.body.idProduct,
+            { $inc: { like: -1 } }
+        )
+        return res.status(200).json({ message: "xoá khỏi danh sách like thành công" })
     } catch (error) {
         return res.status(400).json({ message: error.message })
     }

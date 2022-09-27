@@ -204,12 +204,18 @@ const TableOrder = ({ data, setData, total, page, setPage }) => {
             dataIndex: 'receiveddate',
             width: 130,
             render: (_, record) => {
-                console.log(record.receiveddate)
-                return (
-                    <div>
-                        {moment(record.receiveddate).zone("+07:00").format("DD/MM/YYYY")}
-                    </div>
-                );
+                if (record.receiveddate) {
+                    return (
+                        <div>
+                            {moment(record.receiveddate).zone("+07:00").format("DD/MM/YYYY")}
+                        </div>
+                    );
+                } else
+                    return (
+                        <div>
+
+                        </div>
+                    );
             },
         },
         {
@@ -307,6 +313,7 @@ const TableOrder = ({ data, setData, total, page, setPage }) => {
                     dataSource={data}
                     columns={mergedColumns}
                     rowClassName="editable-row"
+                    pagination={false}
 
                     scroll={{
                         x: 2000,

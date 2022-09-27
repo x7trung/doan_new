@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         max: 255,
         min: 6,
+        unique: true,
     },
     password: {
         type: String,
@@ -43,6 +44,7 @@ const userSchema = new mongoose.Schema({
     cart: {
         type: Array
     },
+    likeList: { type: Array }
 });
 const usersDB = mongoose.model("users", userSchema);
 

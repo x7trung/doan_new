@@ -32,12 +32,20 @@
   
  
 }
+.ant-menu-item{
+  background-color:#fff !important;
+}
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  background: #fff !important;
+}
 .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected{
   background-color: rgb(255, 216, 167) !important;
   
 }
 .ant-menu-title-content{
   color: #000;
+  font-size: 14px;
+  font-weight: 500;
 }
 .ant-menu-item{
   color: #000 !important;
@@ -55,4 +63,16 @@
 
 .anticon-menu-fold {
   margin-left: 15px !important;
+}
+.productItem_title span {
+  color: gray !important;
+}
+.site-layout-background{
+  position: relative;
+}
+.collapse{
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 5px 15px 0 0;
 }

@@ -40,7 +40,7 @@ const DateOrder = ({ state, setState }) => {
                     </Option>
                 </Select>
             </div>
-            <div className='date-filter'>
+            {/* <div className='date-filter'>
                 <Space>
                     <Select value={type} onChange={setType}>
                         <Option value="date">Ngày</Option>
@@ -48,7 +48,7 @@ const DateOrder = ({ state, setState }) => {
                     </Select>
                     <PickerWithType type={type} onChange={(value) => console.log(value)} />
                 </Space>
-            </div>
+            </div> */}
         </div>
     )
 }

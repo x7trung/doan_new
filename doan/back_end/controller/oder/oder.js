@@ -111,35 +111,30 @@ exports.update = (req, res) => {
 
         }
         Promise.all(req.body.product.map(async (i) => await decreaseProductByOrder(i)))
-        const newSale = req.body.product.reduce((acc, cur) => {
-            if (acc.id == cur.product_id) {
-                return acc.map(i => {
-                    if (i.id == cur.product_id) {
-                        return { ...i, quantity: i.quantity + cur.product_quantity }
-                    } else return i
-                })
+
+        const findProductByIdAndUpdate = async (product) => {
+            const result = await productDB.findById(product.product_id);
+            const exist = result.pre_order.find(item => item.color == product.product_color)
+            if (exist.quantity - product.product_quantity == 0) {
+                await productDB.findByIdAndUpdate(product.product_id, {
+                    $pull: {
+                        pre_order: { color: product.product_color }
+                    }
+                });
             } else {
-                return [...acc, { id: cur.product_id, quantity: cur.product_quantity, product_code: cur.product_code }]
+                await productDB.findByIdAndUpdate(product.product_id, {
+                    $pull: {
+                        pre_order: { color: product.product_color }
+                    }
+                });
+                await productDB.findByIdAndUpdate(product.product_id, {
+                    $push: {
+                        pre_order: { color: product.product_color, quantity: exist.quantity - product.product_quantity }
+                    },
+                });
             }
-        }, [])
-        const updateSaleByMonth = async (product) => {
-
-            const productExists = await productDB.findById(product.id)
-
-            if (productExists.historySale.find(i => i.month == moment(new Date()).format("M"))) {
-                await productDB.updateOne(
-                    { product_code: product.product_code, "historySale.month": Number(moment(new Date()).format("M")) },
-                    { $inc: { "historySale.$.sale": product.quantity } }
-                )
-            } else {
-                await productDB.updateOne(
-                    { product_code: product.product_code },
-                    { $push: { historySale: { month: Number(moment(new Date()).format("M")), sale: product.quantity } } }
-                )
-            }
-
         }
-        Promise.all(newSale.map(async (i) => await updateSaleByMonth(i)))
+        Promise.all(req.body.product.map(async (item) => await findProductByIdAndUpdate(item)))
     }
 
     oderDB.findByIdAndUpdate(id, req.body, { new: true })
@@ -179,23 +174,35 @@ exports.create = async (req, res) => {
         paymenttype: req.body.paymenttype,
         ship: req.body.ship,
         voucher: req.body.voucher,
+        note: req.body.note,
     });
+    console.log(req.body.product)
 
     try {
         const oders = await oder.save();
-        const saveOderByProduct = (id) => {
-            productDB.findById(id).then((product, err) => {
-                if (err) return res.status(404).json({ success: false, message: "lỗi ko tìm thấy product", status: 404 })
-                else {
-                    product.orders.push(oders);
-                    product.save();
-                }
-            })
+        const findProductByIdAndUpdate = async (product) => {
+            const result = await productDB.findById(product.product_id);
+            const exist = result.pre_order.find(item => item.color == product.product_color)
+            if (exist) {
+                await productDB.findByIdAndUpdate(product.product_id, {
+                    $pull: {
+                        pre_order: { color: product.product_color }
+                    }
+                });
+                await productDB.findByIdAndUpdate(product.product_id, {
+                    $push: {
+                        pre_order: { color: product.product_color, quantity: product.product_quantity + exist.quantity }
+                    },
+                });
+            } else {
+                await productDB.findByIdAndUpdate(product.product_id, {
+                    $push: {
+                        pre_order: { color: product.product_color, quantity: product.product_quantity }
+                    },
+                });
+            }
         }
-        const idProduct = [...new Set(req.body.product.map(item => item.product_id))]
-        Promise.all(idProduct.map(item => saveOderByProduct(item)))
-
-
+        Promise.all(req.body.product.map(async (item) => await findProductByIdAndUpdate(item)))
         usertDB.findById(req.params.id).then((user, err) => {
             if (err) return res.status(404).json({ success: false, message: "lỗi ko tìm thấy user", status: 404 })
             else {
@@ -207,6 +214,7 @@ exports.create = async (req, res) => {
 
             }
         })
+
     } catch (err) {
         return res.status(500).json({
             success: "false",

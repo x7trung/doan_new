@@ -2,29 +2,20 @@
 import React, { useState, useEffect } from 'react'
 import TableList from '../product/Table'
 import '../../assets/product-add.css'
-import { Input, Modal, Select } from 'antd';
-import Add from './Add';
+import { Input, Select } from 'antd';
 import Products from "../../services/productServices"
-import DatePicker from './Date';
-import moment from 'moment'
+
 const { Option } = Select;
 
 
 const { Search } = Input;
 const Product = () => {
     const [searchBy, setSearchBy] = useState("")
-    const [visible, setVisible] = useState(false);
+
     const [data, setData] = useState([])
-    const [month, setMonth] = useState({
-        month: moment(new Date()).format("M"),
-        year: moment(new Date()).format("Y"),
-    })
+
     const [loading, setLoading] = useState(false)
-    const [total, setTotal] = useState({
-        totalProduct: 0,
-        totalSale: 0,
-        newProductGoods: 0
-    })
+
     const [totalProduct, setTotalProduct] = useState(0)
     const [page, setPage] = useState(1)
     const [searchKey, setSearchKey] = useState("")
@@ -38,32 +29,26 @@ const Product = () => {
         setLoading(true)
         try {
             const params = {
-                limit: 10, page: 1,
+                limit: 10, page: 1, sort: "product_code"
             }
             const data = await Products.getProducts(params)
             setTotalProduct(data.count)
-            const result = await Products.getTotal({ month: Number(month.month) })
-            setTotal(result)
+            // const result = await Products.getTotal({ month: Number(month.month) })
+            // setTotal(result)
+
             setData(data.data.map((i, index) => {
+                const thisStock = i.detail.reduce((acc, cur) => { return acc + cur.quantity }, 0)
+                const thisPreOrder = i.pre_order.reduce((acc, cur) => { return acc + cur.quantity }, 0)
                 return {
                     key: index,
                     ...i, image: i.image.map(img =>
                         img.imageUrl
                     ),
-                    import_price: i.history[0].price,
-                    stock: i.history.filter(item => item.created == month.month).slice(-1)
-                        ?.reduce((acc, cur) => {
-                            return acc + cur.detail.reduce((a, c) => {
-                                return a + c.quantity
-                            }, 0)
-                        }, 0) - i.historySale.filter(item => item.month == month.month)[0]?.sale || i.history.filter(item => item.created == month.month).slice(-1)
-                            ?.reduce((acc, cur) => {
-                                return acc + cur.detail.reduce((a, c) => {
-                                    return a + c.quantity
-                                }, 0)
-                            }, 0)
-                    ,
-                    sale: i.historySale.find(item => item.month == month.month)?.sale || 0
+
+                    pre_order: thisPreOrder > 0 ? thisStock - thisPreOrder : thisStock,
+                    import_price: (i.price * 100 / 150),
+                    stock: thisStock
+
                 }
             }))
         } catch (error) {
@@ -74,11 +59,11 @@ const Product = () => {
 
     useEffect(() => {
         getData()
-    }, [month])
+    }, [])
     useEffect(() => {
         getDataBySearch()
     }, [page, searchKey])
-
+    console.log(data)
     const getDataBySearch = async () => {
 
         setLoading(true)
@@ -90,42 +75,34 @@ const Product = () => {
                 }
             } else if (searchBy == "name") {
                 params = {
-                    limit: 10, page: page, "name[regex]": searchKey
+                    limit: 10, page: page, "name[regex]": searchKey, sort: "product_code"
                 }
             } else if (searchBy == "product_code") {
                 params = {
-                    limit: 10, page: page, "product_code[regex]": searchKey
+                    limit: 10, page: page, "product_code[regex]": searchKey, sort: "product_code"
                 }
             } else {
                 params = {
-                    limit: 10, page: page, "price[lt]": searchKey
+                    limit: 10, page: page, "price[lt]": searchKey, sort: "product_code"
                 }
             }
 
             const data = await Products.getProducts(params)
             setTotalProduct(data.count)
-            const result = await Products.getTotal({ month: Number(month.month) })
-            setTotal(result)
+
             setData(data.data.map((i, index) => {
+                const thisStock = i.detail.reduce((acc, cur) => { return acc + cur.quantity }, 0)
+                const thisPreOrder = i.pre_order.reduce((acc, cur) => { return acc + cur.quantity }, 0)
                 return {
                     key: index,
                     ...i, image: i.image.map(img =>
                         img.imageUrl
                     ),
-                    import_price: i.history[0].price,
-                    stock: i.history.filter(item => item.created == month.month).slice(-1)
-                        ?.reduce((acc, cur) => {
-                            return acc + cur.detail.reduce((a, c) => {
-                                return a + c.quantity
-                            }, 0)
-                        }, 0) - i.historySale.filter(item => item.month == month.month)[0]?.sale || i.history.filter(item => item.created == month.month).slice(-1)
-                            ?.reduce((acc, cur) => {
-                                return acc + cur.detail.reduce((a, c) => {
-                                    return a + c.quantity
-                                }, 0)
-                            }, 0)
-                    ,
-                    sale: i.historySale.find(item => item.month == month.month)?.sale || 0
+                    // pre_order: thisPreOrder,
+                    pre_order: thisPreOrder > 0 ? thisStock - thisPreOrder : thisStock,
+                    import_price: (i.price * 100 / 150),
+                    stock: thisStock
+
                 }
             }))
         } catch (error) {
@@ -142,7 +119,7 @@ const Product = () => {
         <div>
             <div className='product-add'>
                 <div>
-                    <DatePicker setMonth={setMonth} month={month} />
+                    {/* <DatePicker setMonth={setMonth} month={month} /> */}
                 </div>
                 <div className='product-search'>
 
@@ -155,50 +132,28 @@ const Product = () => {
                         }}
                         allowClear
                     />
-                </div>
-                <Select
-                    defaultValue={searchBy}
-                    style={{
-                        width: 120,
-                    }}
-                    onChange={(value) => setSearchBy(value)}
-                >
-                    <Option value="">All</Option>
-                    <Option value="name">Tên</Option>
-                    <Option value="product_code">Mã sản phẩm</Option>
-                    <Option value="price">Giá bán</Option>
-
-                </Select>
-                <div className='product-add_data'>
-                    <button onClick={() => setVisible(true)}>Thêm sản phẩm</button>
-                    <Modal
-                        title="Thêm Sản phẩm"
-                        centered
-                        visible={visible}
-                        onOk={() => setVisible(false)}
-                        onCancel={() => setVisible(false)}
-                        width={1000}
-                        footer={null}
-                        maskClosable={false}
+                    <Select
+                        defaultValue={searchBy}
+                        style={{
+                            width: 120,
+                        }}
+                        onChange={(value) => setSearchBy(value)}
                     >
-                        <Add />
-                    </Modal>
+                        <Option value="">Tất cả</Option>
+                        <Option value="name">Tên</Option>
+                        <Option value="product_code">Mã sản phẩm</Option>
+                        <Option value="price">Giá bán</Option>
+
+                    </Select>
                 </div>
+
+                <div></div>
             </div>
-            <div className='product-sum'>
-                <div className='product-sum_item'>
-                    <h3>Tổng hàng tồn tất cả sản phẩm: <span>{total.totalProduct}</span></h3>
-                </div>
-                <div className='product-sum_item'>
-                    <h3>Tổng hàng bán tất cả sản phẩm: <span>{total.totalSale}</span></h3>
-                </div>
-                <div className='product-sum_item'>
-                    <h3>Tổng hàng nhập tất cả sản phẩm: <span>{total.newProductGoods}</span></h3>
-                </div>
-            </div>
+
             <div className='table-product'>
-                <TableList data={data} setData={setData} month={month} page={page} setPage={setPage} totalProduct={totalProduct} />
+                <TableList data={data} setData={setData} page={page} setPage={setPage} totalProduct={totalProduct} />
             </div>
+
         </div>
     )
 }

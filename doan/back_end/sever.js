@@ -17,6 +17,7 @@ app.use("/auth", require("./route/auth/index"))
 app.use("/product", require("./route/product/index"))
 app.use("/user", require("./route/user/index"))
 app.use("/oder", require("./route/oder/index"))
+app.use("/supplier", require("./route/supplier/index"))
 
 
 app.listen(PORT, () => {

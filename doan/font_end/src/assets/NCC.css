@@ -1,0 +1,23 @@
+
+.containerNCC-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.product-add_data {
+    padding-right: 20px;
+    margin-bottom: 20px;
+  
+}
+.product-add_data button{
+    font-size: 16px;
+    font-weight: 400;
+    padding: 5px 40px;
+    background-color: gray;
+    border: gainsboro;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
