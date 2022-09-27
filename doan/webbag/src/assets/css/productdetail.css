@@ -1,0 +1,36 @@
+.ProductDetai{
+    margin: 135px 50px 10px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 56px;
+    min-height: 120vh;
+    background-color: #fff;
+    padding-top: 15px;
+}
+.ProductDetail-Des{
+    background-color: #fff;
+    margin:  0 50px 20px 50px;
+    padding-left: 20px;
+}
+
+.comment-user{
+    width: max-content;
+    height: 30px;
+    padding: 3px 10px;
+    margin-bottom: 15px;
+    border: 1px solid gainsboro;
+    background-color:rgb(227, 227, 227);
+    border-radius: 14px;
+}
+.comment-user:hover{
+    background-color:  rgb(246, 249, 252);
+    cursor: pointer;
+}
+ .comment-user_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap:15px;
+
+ }

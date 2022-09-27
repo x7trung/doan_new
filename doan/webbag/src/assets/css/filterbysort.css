@@ -1,0 +1,42 @@
+.filter-sort{
+    display: flex;
+    justify-content: space-between;
+}
+.filter-sort_select{
+    margin-top: 20px;
+    
+}
+.header-search_filter{
+    width: 200px !important;
+}
+.btn-filter{
+    width: 70px;
+    height: 35px;
+    margin-bottom: 15px;
+    font-size: 17px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid rgb(180, 180, 186);
+    font-weight: 300;
+    background-color: aliceblue;
+}
+.btn-filter:hover {
+    color: #fff;
+    background-color: bisque;
+}
+.btn-icon{
+    width: 70px;
+    height: 35px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid rgb(180, 180, 186);
+    font-weight: 300;
+}
+.btn-icon:hover {
+    color: #fff;
+    background-color: bisque;
+}

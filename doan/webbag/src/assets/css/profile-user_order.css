@@ -1,0 +1,136 @@
+.profileorder-information{
+    /* background-color: #fff; */
+    padding: 0 20px;
+    height: max-content;
+  
+}
+.profileorder-order{
+    background-color: #fff;
+    height: max-content;
+    margin-bottom: 15px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+.profileorder-order_title{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+   
+    width: 100%;
+}
+.profileorder-order_item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.profileorder-order_h4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+.profileorder-ordercontent_item_price h3{
+font-weight: 400;
+}
+.profileorder-order_state{
+    border-right: 1px solid rgb(223, 222, 222);
+    padding-right: 3px;
+}
+.profileorder-order_state h3{
+    color: #ee4d2d;
+    font-weight: 450;
+}
+.profileorder-ordercontent_item{
+    display: grid;
+    grid-template-columns: 1fr 8fr 1fr;
+    padding: 10px 15px;
+    border-top: 1px solid rgb(223, 222, 222);
+}
+.profileorder-ordercontent_item img{
+    height: 75px;
+    width: 75px;
+}
+.profileorder-ordercontent_item_information span{
+   color: gray;
+   font-weight: 400;
+}
+.profileorder-ordercontent_item_information h4{
+   font-weight: 400;
+}
+
+.profileorder-ordercontent_information{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+    align-items: center;
+    border-top:1px solid rgb(223, 222, 222) ;
+}
+.profileorder-ordercontent_information_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.profileorder-ordercontent_information-btn1{
+    padding: 7px 30px;
+    border-radius: 5px;
+    border: 1px solid #e8674d;
+    background-color: #e8674d;
+    color: #fff;
+}
+.profileorder-ordercontent_information_price h3{
+font-weight: 400;
+}
+.profileorder-ordercontent_information_price span{
+font-weight: 400;
+color:#ee4d2d;
+font-size: 25px;
+}
+.profileorder-ordercontent_information-btn1:hover{
+    background-color: #ee4d2d;
+
+}
+.profileorder-ordercontent_information-btn2{
+    padding: 7px 20px;
+    border-radius: 5px;
+    border: 1px solid #e8674d;
+    background-color: #e8674d;
+    color: #fff;
+}
+.profileorder-ordercontent_information-btn2:hover{
+    background-color: #ee4d2d;
+
+}
+.information-address h3{
+    color: grey;
+    font-weight: 400;
+    font-size: 16px;
+}
+.information-address span{
+    color: black;
+    font-weight: 400;
+    font-size: 16px;
+}
+.informationorders-orders_title{
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    border-top: 1px solid rgb(223, 222, 222);
+    padding-top: 10px;
+}
+.informationorders-bill_receipt{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.informationorders-bill_receipt h3{
+ font-size: 14profileorder-orderpx;
+font-weight: 400;
+
+}
+.informationorders-bill_receipt span{
+ font-size: 16px;
+font-weight: 400;
+color:#ee4d2d
+}

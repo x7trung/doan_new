@@ -1,0 +1,22 @@
+.post-title h2{
+    font-size: 25.6px;
+    font-weight: 600;
+}
+.post-title h4{
+    font-size: 17px;
+    font-weight: 400;
+    
+}
+.post-title{
+    text-align: center;
+    margin-bottom: 19px;
+}
+.post-news{
+    display: flex;
+    
+    justify-content: space-around;
+    margin-left: 47px;
+    margin-right: 47px;
+    margin-bottom: 49px;
+
+}

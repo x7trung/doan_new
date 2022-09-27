@@ -1,0 +1,14 @@
+.profile-like{
+    background-color: #fff;
+    height: max-content;
+    padding: 30px 20px 20px 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+.profile-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

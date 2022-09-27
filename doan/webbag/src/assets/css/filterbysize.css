@@ -1,0 +1,27 @@
+.filter-size{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+    border-right: 1px solid gray;
+}
+.filter-size_container{
+    border: 1px solid rgb(219, 214, 214);
+    padding: 2px 5px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.filter-size_container:hover{
+    transform: scale(1.3);
+    border: 2px solid bisque;
+    color: #fff;
+    background-color: bisque;
+    cursor: pointer;
+}
+.filter-size_container.active{
+    transform: scale(1.3);
+    border: 2px solid bisque;
+    color: #fff;
+    background-color: bisque;
+    cursor: pointer;
+}

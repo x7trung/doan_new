@@ -1,0 +1,23 @@
+.filterbyproduct{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 19px;
+}
+.filter-product_detail{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 29px;
+    margin: 54px 10px 54px 54px;
+}
+.product-list{
+    background-color: #fff;
+}
+.filter-product_page_number{
+    display: flex;
+    width: 100%;
+    align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}

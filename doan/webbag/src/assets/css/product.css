@@ -1,0 +1,171 @@
+
+.prot{
+    margin-bottom: 49px !important;
+    background-color: #fff;
+}
+
+.protfoLio-title{
+    text-align: center;
+   margin-bottom: 15px;
+}
+.protfoLio-title h2{
+    font-size: 25.6px;
+    font-weight: 600;
+}
+.protfoLio-title h4{
+    font-size: 17px;
+    font-weight: 400;
+    
+}
+
+
+.product-protfolio{
+    display: grid;
+    grid-template-columns: repeat(3,419px) !important;
+    grid-column-gap: 19px;
+    grid-row-gap: 19px;
+    margin: 0 109px;
+
+    
+}
+
+.protfolio-one{
+    grid-column: 1/3;
+    height: 380px;
+    
+    position: relative;
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+    overflow: hidden;
+    z-index: 0;
+}
+.overlay{
+    overflow: hidden;
+}
+.overlay:hover img{
+    transform: scale(1.2);
+}
+
+.overlay::after{
+   content: "";
+   position: absolute;
+    z-index: 1;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.17);;
+}
+.protfolio-btn{
+    border-radius: 8px;
+    background:transparent ;
+    border: 3px solid #fff;
+    position: absolute;
+    padding: 10px 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 20px;
+    color: #fff;
+    z-index: 2;
+    cursor: pointer;
+}
+.protfolio-btn:hover{
+  color: black;
+  background-color: #fff;
+}
+.protfolio-one img{
+    height:380px;
+    object-fit:cover;
+    width:859px ;
+}
+.overlay img{
+    transition: all .3s linear;
+}
+
+.protfolio-two{
+     height: 380px;
+    
+    position: relative;
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+    overflow: hidden;
+ 
+}
+.protfolio-two img{
+    height:380px;
+    object-fit:cover;
+    width:419px ;
+}
+
+.protfolio-three{
+     height: 380px;
+    
+    position: relative;
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+    overflow: hidden;
+}
+.protfolio-three img{
+    height:380px;
+    object-fit:cover;
+    width:419px ;
+}
+.protfolio-four{
+     height: 380px;
+    
+    position: relative;
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+    overflow: hidden;
+}
+.protfolio-four img{
+    height:380px;
+    object-fit:cover;
+    width:419px ;
+}
+.protfolio-five{
+     height: 380px;
+    
+    position: relative;
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+    overflow: hidden;
+}
+.protfolio-five img{
+    height:380px;
+    object-fit:cover;
+    width:419px ;
+}
+.protfolio-six{
+    grid-column: 1/3;
+    height: 380px;
+    
+    position: relative;
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+    overflow: hidden;
+}
+.protfolio-six img{
+    height:380px;
+    object-fit:cover;
+    width:859px ;
+}
+.protfolio-sevent{
+     height: 380px;
+    
+    position: relative;
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+    overflow: hidden;
+}
+.protfolio-sevent img{
+    height:380px;
+    object-fit:cover;
+    width:419px ;
+}
+

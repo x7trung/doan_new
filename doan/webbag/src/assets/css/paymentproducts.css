@@ -1,0 +1,98 @@
+
+.payment{
+    height: max-content;
+    overflow: hidden;
+    transition: all .5s linear;
+    width: 100%;
+    padding: 20px 30px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+.expand{
+    height: 100px;
+    transition: all .5s linear;
+}
+.pay{
+    width: 100%;
+    padding: 20px 50px;
+    margin-top: 135px;
+}
+.payment-title_window{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 19px;
+    border-bottom: 1px solid gainsboro;
+   padding-bottom: 19px;
+    height: 40px;
+    padding-right: 40px;
+}
+.payment-title_window button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 40px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    background-color: #ee4d2d;
+    border: #ee4d2d;
+
+}
+
+
+.payment-title{
+   
+    
+    
+    padding-left: 20px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    color: #ee4d2d;
+}
+.payment-title h2{
+    font-weight: 450;
+    color: #ee4d2d;
+}
+
+
+.payment-content{
+    width: 100%;
+ 
+}
+.payment-content .ant-input:placeholder-shown{
+    width: 70%;
+
+}
+.payment-label{
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: gray;
+
+}
+.payment-input{
+ 
+  margin-bottom: 15px;
+  
+
+}
+
+
+.pay-successful{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+}
+.pay-successful h2{
+    font-size: 25px;
+    font-weight: 450;
+    color: #ee4d2d;
+}
+.pay-successful_icon {
+    font-size: 50px;
+}

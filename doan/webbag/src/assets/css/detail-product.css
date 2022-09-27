@@ -1,0 +1,246 @@
+.detail{
+    width: 80vh;
+}
+.detail-title {
+  margin-bottom: 8px
+}
+.detail-title span{
+    font-size: 13px;
+    background-color:#ee4d2d;
+    color: #fff;
+    padding: 1px;
+    border-radius: 2px;
+    font-weight: 400;
+    margin: 0 5px 5px 0;
+}
+.detail-title h2{
+    font-size: 20px;
+    font-weight: 450;
+}
+
+.information{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.information-vote{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid rgb(214, 211, 211);
+    height: 26px;
+    padding-right: 20px;
+    
+}
+.information-vote h2{
+    font-size: 17px;
+    font-weight: 450;
+    text-decoration: underline;
+    color:#ee4d2d;
+    margin-right: 5px;
+}
+.information-comment h2{
+    font-size: 17px;
+    font-weight: 450;
+    text-decoration: underline;
+   display: inline;
+    margin-right: 5px;
+}
+.information-comment span{
+    font-size: 15px;
+    font-weight: 450;
+    text-decoration: none;
+   display: inline;
+    margin-right: 5px;
+    color: gray;
+}
+.information-comment{
+    padding-left: 15px;
+    margin-right: 15px;
+    border-right: 1px solid rgb(214, 211, 211);
+}
+
+.information-sold h2{
+    font-size: 17px;
+    font-weight: 450;
+    
+   display: inline;
+    margin-right: 5px;
+}
+.information-sold span{
+    font-size: 15px;
+    font-weight: 450;
+    text-decoration: none;
+   display: inline;
+    margin-right: 5px;
+    color: gray;
+}
+.detail-price{
+    width: 100%;
+    height: 80px;
+    background-color: rgb(246, 246, 246);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 20px;
+    gap: 15px;
+    margin-bottom: 19px;
+}
+.detail-price h2{
+    font-size: 17px;
+    font-weight: 450;
+    text-decoration: line-through;
+    color:gray;
+    margin-right: 5px;
+    font-style: italic;
+}
+.detail-price h1{
+   
+    font-weight: 500;
+    color:#ee4d2d;
+    margin-right: 5px;
+    
+}
+.detail-price span{
+    font-size: 15px;
+    background-color:#ee4d2d;
+    color: #fff;
+    padding: 1px;
+    border-radius: 3px;
+    font-weight: 400;
+    
+}
+.detail-product_bag{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 52px;
+    /* border-bottom: 1px solid black; */
+    margin-bottom: 17px;
+}
+.detail-product_bag h2{
+    font-size: 17px;
+    font-weight: 450;
+    
+    
+    margin-right: 15px;
+}
+.detail-product_bag h3{
+    font-size: 17px;
+    font-weight: 450;
+    
+    color:gray;
+}
+.detail-color{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    
+}
+
+
+.detail-colorfull{
+    width: 30px;
+height: 30px;
+border-radius: 50%;
+border: 1px solid rgb(188, 185, 185);
+overflow: hidden;
+
+}
+.detail-product_bag {
+display: flex;
+
+align-items: center;
+gap: 15px;
+
+}
+.detail-colorfull:hover {
+    transform: scale(1.3);
+    border: 2px solid gray;
+    cursor: pointer;
+}
+.detail-colorfull.active {
+    transform: scale(1.3);
+    border: 2px solid gray;
+  
+}
+.product-bag_number{
+   width: 150px;
+   display: grid;
+   grid-template-columns: 1fr 1.5fr 1fr;
+   
+   
+}
+.number-item{
+    border: 1px solid rgb(165, 162, 162);
+    padding: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    cursor: pointer;
+
+}
+
+.cart{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    width: 340px;
+    gap: 10px;
+   margin-top: 30px;
+}
+.bycart{
+    border: 1px solid #ee4d2d;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    border-radius: 2px;
+    color: #ee4d2d;
+    font-weight: 450;
+}
+.product-cart{
+    background-color: #ffecec;
+    cursor: pointer;
+}
+.product-cart_icon{
+    margin-right: 5px;
+  
+}
+.product-cart:hover {
+    background-color: #fcf7ea;
+}
+
+.product-buynow{
+    color: #fff;
+    background-color: #ee4d2d;
+}
+.product-buynow:hover{
+    color: #fff;
+    background-color: #ef6246;
+}
+
+
+.brand{
+    margin-top: 150px;
+    width: 100%;
+    height: 70px;
+    border-top: 1px solid rgb(221, 219, 219);
+    display: flex;
+align-items: center;
+padding-left: 20px;
+}
+.brand h3{
+ font-size: 17px;
+ font-weight: 400;
+ padding-right: 10px;
+}
+.brand span{
+ font-size: 16px;
+ font-weight: 400;
+ color: gray;
+}

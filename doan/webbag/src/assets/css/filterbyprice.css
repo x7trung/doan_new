@@ -1,0 +1,28 @@
+.filterby_item{
+    display: flex;
+    align-items:flex-start;
+    flex-direction: column;
+    /* justify-content: center; */
+   
+}
+.filterby-price{
+  
+    height: 100px;
+    border-right: 1px solid gray;
+    padding-right: 10px;
+   
+    
+}
+
+.filter-price {
+    text-align: center;
+    
+}
+
+.filter-price h4{
+    margin-top: 20px;
+    font-size: 17px;
+    font-weight: 600;
+    color: rgb(249, 0, 0);
+    
+}

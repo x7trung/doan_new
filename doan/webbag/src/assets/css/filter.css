@@ -1,0 +1,46 @@
+.filter{
+    margin:135px 20px 0 20px;
+}
+
+.filter-wrapper{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 10px;
+    
+   
+}
+.filter-wrapper_ones{
+    border-bottom: 1px solid gray;
+}
+
+.filter-wrapper_twos{
+    padding-top: 20px;
+}
+
+
+
+.filterby{
+    height: 150px;
+    background-color:#fff;
+}
+.filterby h3{
+    padding-left: 20px;
+    font-size: 17px;
+}
+
+.filter-wrapper_material{
+    border-right: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+
+
+/* bộ lọc màu */
+
+
+/* bộ lọc size */

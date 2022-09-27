@@ -1,0 +1,267 @@
+.product-pay{
+
+    width: 100%;
+      
+    height: max-content;
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr ;  
+    padding: 10px;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.productpay-list_img{
+    display: flex; 
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.productpay-list_img h3{
+    font-weight: 450;
+    font-size: 17px;
+ }
+ .productpay-list_img img{
+     height: 79px;
+     width: 79px;
+ }
+
+ .productpay_item h3{
+    font-size: 17px;
+    font-weight: 400;
+ }
+ .productpay_item h2{
+    font-size: 17px;
+    font-weight: 400;
+    color: #ee4d2d;
+}
+
+.productpay_item span{
+    font-size: 17px;
+    font-weight: 400;
+    color: gray;
+}
+
+.productpay-bag_number{text-align: center;}
+
+.payall-product{
+    background-color: #fff;
+    width: 100%;
+    height: max-content;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+.payall-product_header{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+}
+
+.payall-payments{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
+    margin: 0 20px;
+    /* border-bottom: 1px solid rgb(222, 222, 222); */
+}
+.payall-payments h2{
+    font-weight: 450;
+}
+.payall-payments_item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+.payall-Bill{
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 10px 30px;
+    margin-bottom: 15px;
+}
+.payall-bill_receipt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 15px;
+
+}
+.payall-bill_receipt h3{
+ font-size: 16px;
+ font-weight: 400;
+color: gray;
+}
+
+.payall-bill_btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px 20px 70px;
+    border-top: 1px solid rgb(222, 222, 222);
+    background-color: #fff;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    width: 100%;
+
+}
+
+.payall-bill_total span{
+font-size: 19px;
+font-weight: 450;
+color: gray;
+}
+.payall-bill_total h2{
+    font-weight: 500;
+    color: #ee4d2d;
+}
+
+
+
+.payall-bill_item button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    padding: 10px 80px;
+    color: #fff;
+    background-color: #ee4d2d;
+    cursor: pointer;
+    border: #ee4d2d;
+    border-radius: 2px;
+}
+.payall-bill_item button:hover{
+   
+    background-color: #eb6045;
+  
+}
+
+.payall-item_rdo:focus-within{
+    box-shadow:unset !important
+}
+.payall-item_rdo.ant-radio-button-wrapper:not(:first-child):before{
+    background-color:unset !important;
+}
+
+
+.payall-item_rdo:hover{
+    border-color: red !important;
+    color: red !important;
+}
+.productpay-color_item{
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 5px;
+}
+.productpay_item_backgroudcolor{
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+}
+.payall-product_header_voucher{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pay-vouchers-event{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pay-vouchers h3{
+    cursor: pointer;
+    font-weight: 400;
+    color: gray;
+}
+.pay-vouchers-event_icon{
+    font-size: 20px;
+}
+/* /////////////////////voucher/////////////////////// */
+.payvouchers-information{
+width: 100%;
+}
+.payvouchers{
+  width: 100%;
+    display: flex;
+    height: max-content;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+.payvouchers-item{
+    width: 100%;
+    height: 116px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    margin:20px 0;
+   
+}
+.payvouchers-item_sticker{
+    background-color: #ee4d2d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.payvouchers-item_sticker h2{
+font-size: 29px;
+color: #fff;
+}
+.payvouchers-item_sticker h3{
+font-weight: 450;
+color: #fff;
+}
+.payvouchers-item_information{
+    margin-left: 15px;
+    padding: 0 10px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+}
+.payvouchers-item_information_title{
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+}
+.payvouchers-item_information_title h2{
+    font-weight: 500;
+   
+}
+.payvouchers-item_information_title h3{
+    font-weight: 450;
+   
+}
+.payvouchers-item_information_pay{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.payvouchers-item_information_pay h3{
+    font-weight: 450;
+    color: gray;
+}
+.payvouchers-item_information_pay span{
+    font-weight: 450;
+    color: black;
+    
+}
+.btn-payvouchers{
+    padding:5px 20px;
+    border: 1px solid #eb6045;
+    background-color: #eb6045;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.btn-payvouchers:hover{
+    background-color: #ee4d2d;
+}
